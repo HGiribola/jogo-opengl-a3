@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="MeuJogo" default="run" basedir=".">
+
+    <!--Propriedades para diretórios-->
+    <property name="src.dir" value="src"/>
+    <property name="lib.dir" value="C:/Users/notej/Documents/a3/lib/jogamp-all-platforms/jogamp-all-platforms/jar"/>
+    <property name="build.dir" value="build/classes"/>
+    <property name="native.dir" value="C:/Users/notej/Documents/a3/lib/jogamp-all-platforms/jogamp-all-platforms/native/windows-amd64"/>
+
+    <!--Path para as bibliotecas-->
+    <path id="classpath">
+
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        
+        <pathelement path="src"/>
+    </path>
+
+    <!--Compilando-->
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath"/>
+    </target>
+
+    <!--Executando-->
+    <target name="run" depends="compile">
+
+        <java classname="MeuJogo" fork="true">
+
+            <classpath>
+                <pathelement path="${build.dir}"/>
+                <pathelement path="${lib.dir}/gluegen-rt.jar"/>
+                <pathelement path="${lib.dir}/jogl-all.jar"/>
+            </classpath>
+            
+            <jvmarg value="-Djava.library.path=${native.dir}"/>
+
+        </java>
+        
+    </target>
+
+    <!--Limpando o diretório da build-->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+</project>
