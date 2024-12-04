@@ -27,7 +27,7 @@
     <!--Executando-->
     <target name="run" depends="compile">
 
-        <java classname="MeuJogo" fork="true">
+        <java classname="PongGame" fork="true">
 
             <classpath>
                 <pathelement path="${build.dir}"/>
